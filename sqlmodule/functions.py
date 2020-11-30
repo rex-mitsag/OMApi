@@ -14,8 +14,8 @@ def checkconn() :
     try :
         conn = pyodbc.connect(driver)
         return 'working'
-    except :
-        return 'error'
+    except Exception as Argument:
+        return Argument
 
 def updatedata(query) :
     conn = pyodbc.connect(driver)
