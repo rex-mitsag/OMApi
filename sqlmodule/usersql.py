@@ -44,5 +44,6 @@ def getfestival(date) :
     sqlquery = "EXEC GetFestival @date='"+str(date)+"'"
     return fn.getlistdata(sqlquery)
 
-def getdoom() :
-    return 'DOOM Eternal'
+def logout(inp, name) :
+    sqlquery = "EXEC LogOut @input="+str(inp)+", @Name='"+str(name)+"'"
+    return fn.updatedata(sqlquery)

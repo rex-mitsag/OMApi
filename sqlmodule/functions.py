@@ -10,13 +10,6 @@ driver = 'Driver={ODBC Driver 17 for SQL Server};''Server=tcp:qeplsqlcloud.datab
 #
 ##
 
-def checkconn() :
-    try :
-        conn = pyodbc.connect(driver)
-        return 'working'
-    except Exception as Arguments:
-        return str(Arguments)
-
 def updatedata(query) :
     conn = pyodbc.connect(driver)
     cursor = conn.cursor()

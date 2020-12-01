@@ -166,6 +166,13 @@ def getFestivals() :
     json_out = json.dumps(jsonList)
     return json_out
 
+@app.route('/user/logOutUser')
+def logOutUser() :
+    input = str(request.args['input'])
+    name = str(request.args['name'])
+    out = usq.logout(input, name)
+    return str(out[0][0])
+
 ##-----------ORDER------------##
 
 @app.route('/order/inputOrderId')
@@ -380,20 +387,6 @@ def updateUserAuth() :
     return str(out)
 
 ##-----------MAIN------------##
-
-@app.route('/connstring')
-def hello():
-    return func.checkconn()
-
-@app.route('/doom')
-def doom():
-    out = usq.getdoom()
-    objects_list = []
-    d = collections.OrderedDict()
-    d["msg"] = out
-    objects_list.append(d)
-    jsonList = json.dumps(objects_list)
-    return jsonList
 
 if __name__ == '__main__' :
     app.run()
