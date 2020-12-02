@@ -131,8 +131,9 @@ def authUsers() :
             d["CRT"] = row[5]
             d["EP"] = row[6]
             d["BAG"] = row[7]
-            d["forward"] = row[8]
-            d["status"] = row[9]
+            d["rem"] = row[8]
+            d["forward"] = row[9]
+            d["status"] = row[10]
             objects_list.append(d)
         jsonList = json.dumps(objects_list)
         return jsonList
@@ -169,8 +170,8 @@ def getFestivals() :
 @app.route('/user/logOutUser')
 def logOutUser() :
     input = str(request.args['input'])
-    name = str(request.args['name'])
-    out = usq.logout(input, name)
+    id = str(request.args['id'])
+    out = usq.logout(input, id)
     return str(out[0][0])
 
 ##-----------ORDER------------##
@@ -185,7 +186,8 @@ def orderid() :
     crt = str(request.args['crt'])
     ep = str(request.args['ep'])
     bag = str(request.args['bag'])
-    out = osq.inputorder(orderid, orderdate, latitude, longitude, amount, crt, ep, bag)
+    rem = str(request.args['rem'])
+    out = osq.inputorder(orderid, orderdate, latitude, longitude, amount, crt, ep, bag, rem)
     return str(out[0][0])
 
 @app.route('/order/inputDealerOrderId')
@@ -199,7 +201,8 @@ def dealerorderid() :
     crt = str(request.args['crt'])
     ep = str(request.args['ep'])
     bag = str(request.args['bag'])
-    out = osq.inputdealerorder(sid, orderid, orderdate, latitude, longitude, amount, crt, ep, bag)
+    rem = str(request.args['rem'])
+    out = osq.inputdealerorder(sid, orderid, orderdate, latitude, longitude, amount, crt, ep, bag, rem)
     return str(out[0][0])
 
 @app.route('/order/getOrderDetail')

@@ -1,11 +1,11 @@
 import sqlmodule.functions as fn
 
-def inputorder(inputID, inputDate, inputlat, inputlong, inputAmt, crt, ep, bag) :
-    sqlquery = "EXEC SelectOrder @uid = '"+str(inputID)+"', @date = '"+str(inputDate)+"', @lat = '"+str(inputlat)+"', @long = '"+str(inputlong)+"', @amt= "+str(inputAmt)+", @crt= "+str(crt)+", @ep= "+str(ep)+", @bag= "+str(bag)
+def inputorder(inputID, inputDate, inputlat, inputlong, inputAmt, crt, ep, bag, rem) :
+    sqlquery = "EXEC SelectOrder @uid = '"+str(inputID)+"', @date = '"+str(inputDate)+"', @lat = '"+str(inputlat)+"', @long = '"+str(inputlong)+"', @amt= "+str(inputAmt)+", @crt= "+str(crt)+", @ep= "+str(ep)+", @bag= "+str(bag)+", @rem="+str(rem)
     return fn.getlistdata(sqlquery)
 
-def inputdealerorder(inputSID, inputID, inputDate, inputlat, inputlong, inputAmt, crt, ep, bag) :
-    sqlquery = "EXEC SelectDealerOrder @sid='"+str(inputSID)+"', @uid = '"+str(inputID)+"', @date = '"+str(inputDate)+"', @lat = '"+str(inputlat)+"', @long = '"+str(inputlong)+"', @amt="+str(inputAmt)+", @crt= "+str(crt)+", @ep= "+str(ep)+", @bag= "+str(bag)
+def inputdealerorder(inputSID, inputID, inputDate, inputlat, inputlong, inputAmt, crt, ep, bag, rem) :
+    sqlquery = "EXEC SelectDealerOrder @sid='"+str(inputSID)+"', @uid = '"+str(inputID)+"', @date = '"+str(inputDate)+"', @lat = '"+str(inputlat)+"', @long = '"+str(inputlong)+"', @amt="+str(inputAmt)+", @crt= "+str(crt)+", @ep= "+str(ep)+", @bag= "+str(bag)+", @rem="+str(rem)
     return fn.getlistdata(sqlquery)
 
 def inputorderdetails(id, pkg, mm, pd, km, ct, tt, ctk, am, hj, co, mix, epkg, emm, epd, ekm, ect, ett, ectk, eam, ehj, eco, emix, bpkg, bmm, bpd, bkm, bct, btt, bctk, bam, bhj, bco, bmix) :
