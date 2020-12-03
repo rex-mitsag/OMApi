@@ -269,6 +269,7 @@ def checkDate() :
             d["bag"] = row[4]
             d["date"] = row[5]
             d["basket"] = row[6]
+            d["remark"] = row[7]
             objects_list.append(d)
         jsonList = json.dumps(objects_list)
         return jsonList
@@ -315,6 +316,7 @@ def checkSubDate() :
             d["bag"] = row[5]
             d["date"] = row[6]
             d["basket"] = row[7]
+            d["remark"] = row[8]
             objects_list.append(d)
         jsonList = json.dumps(objects_list)
         return jsonList
