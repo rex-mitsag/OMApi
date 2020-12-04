@@ -33,6 +33,10 @@ def updateauth(ip, rem, oid) :
     sqlquery = "EXEC UpdateAuth @auth='"+str(ip)+"', @remark='"+str(rem)+"', @ordid='"+str(oid)+"'"
     return fn.updatedata(sqlquery)
 
+def deleteord(id) :
+    sqlquery = "EXEC DeleteOrder @ordid='"+str(id)+"'"
+    return fn.updatedata(sqlquery)
+
 ##super
 def checkdate(id, date) :
     sqlquery = "EXEC checkOrder @date='"+str(date)+"', @id='"+str(id)+"'"
