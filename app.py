@@ -116,7 +116,8 @@ def getSuperId() :
 @app.route('/user/authUsers')
 def authUsers() :
     id = str(request.args['id'])
-    out = usq.getUsersToAuth(id)
+    opt = str(request.args['option'])
+    out = usq.getUsersToAuth(id, opt)
     objects_list = []
     if len(out) == 0 :
         return '0'
