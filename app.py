@@ -393,8 +393,9 @@ def updateUserAuth() :
 
 @app.route('/order/deleteOrder')
 def deleteOrder() :
+    oid = str(request.args['oid'])
     id = str(request.args['id'])
-    out = osq.deleteord(id)
+    out = osq.deleteord(oid, id)
     return str(out)
 
 ##-----------MAIN------------##
