@@ -400,6 +400,13 @@ def deleteOrder() :
     out = osq.deleteord(oid, id)
     return str(out)
 
+@app.route('/order/countOrder')
+def countOrder() :
+    id = str(request.args['id'])
+    date = str(request.args['date'])
+    out = osq.countord(id, date)
+    return str(out[0][0])
+
 ##-----------MAIN------------##
 
 if __name__ == '__main__' :
