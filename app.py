@@ -117,7 +117,8 @@ def getSuperId() :
 def authUsers() :
     id = str(request.args['id'])
     opt = str(request.args['option'])
-    out = usq.getUsersToAuth(id, opt)
+    date = str(request.args['date'])
+    out = usq.getUsersToAuth(id, opt, date)
     objects_list = []
     if len(out) == 0 :
         return '0'

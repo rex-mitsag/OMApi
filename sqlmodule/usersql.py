@@ -32,8 +32,8 @@ def getSuperID(ipID) :
     sqlquery = "EXEC SelectSuper @dealer='"+str(ipID)+"'"
     return fn.getlistdata(sqlquery)
 
-def getUsersToAuth(ipID, option) :
-    sqlquery = "EXEC SelectSubToBeAuthAlt @uid='"+str(ipID)+"', @option='"+str(option)+"'"
+def getUsersToAuth(ipID, option, date) :
+    sqlquery = "EXEC SelectSubToBeAuthAlt @uid='"+str(ipID)+"', @option='"+str(option)+"', @date='"+str(date)+"'"
     return fn.getlistdata(sqlquery)
 
 def getdealersforss(ipID) :
