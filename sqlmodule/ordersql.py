@@ -38,7 +38,7 @@ def deleteord(oid, id) :
     return fn.updatedata(sqlquery)
 
 def countord(id, date) :
-    sqlquery = "EXEC CountOrders @uid='"+str(id)+", @date="+str(date)
+    sqlquery = "EXEC CountOrders @uid='"+str(id)+"', @date='"+str(date)+"'"
     return fn.getlistdata(sqlquery)
 
 ##super
