@@ -63,17 +63,6 @@ def getLedger() :
     json_out = json.dumps(jsonList)
     return json_out
 
-@app.route('/user/getPkgCosts')
-def getPkgCosts() :
-    out = usq.getpkgcost()
-    jsonList = {
-        "crt" : out[0][0],
-        "ep" :  out[1][0],
-        "bag" : out[2][0],
-    }
-    json_out = json.dumps(jsonList)
-    return json_out
-
 @app.route('/order/getFlavor')
 def getFlavors() :
     uid = str(request.args['id'])
@@ -276,12 +265,12 @@ def checkDate() :
         jsonList = json.dumps(objects_list)
         return jsonList
 
-@app.route('/orderhistory/getOrderDays')
-def getOrderDays() :
+@app.route('/orderhistory/getDirectOrder')
+def getDirectOrder() :
     id = str(request.args['id'])
-    start = str(request.args['start'])
-    end = str(request.args['end'])
-    out = osq.checkdays(id, start, end)
+    start = str(request.args['startdate'])
+    end = str(request.args['enddate'])
+    out = osq.checkdate(id, start, end)
     objects_list = []
     if len(out) == 0 :
         return '0'
@@ -295,6 +284,7 @@ def getOrderDays() :
             d["bag"] = row[4]
             d["date"] = row[5]
             d["basket"] = row[6]
+            d["remark"] = row[7]
             objects_list.append(d)
         jsonList = json.dumps(objects_list)
         return jsonList
@@ -323,12 +313,13 @@ def checkSubDate() :
         jsonList = json.dumps(objects_list)
         return jsonList
 
-@app.route('/orderhistory/getSubOrderDays')
-def getSubOrderDays() :
+@app.route('/orderhistory/getDealerOrder')
+def getDealerOrder() :
     id = str(request.args['id'])
-    start = str(request.args['start'])
-    end = str(request.args['end'])
-    out = osq.checksubdays(id, start, end)
+    start = str(request.args['startdate'])
+    end = str(request.args['enddate'])
+    option = str(request.args['option'])
+    out = osq.checksubdate(id, start, end, option)
     objects_list = []
     if(len(out) == 0) :
         return '0'
@@ -343,6 +334,7 @@ def getSubOrderDays() :
             d["bag"] = row[5]
             d["date"] = row[6]
             d["basket"] = row[7]
+            d["remark"] = row[8]
             objects_list.append(d)
         jsonList = json.dumps(objects_list)
         return jsonList

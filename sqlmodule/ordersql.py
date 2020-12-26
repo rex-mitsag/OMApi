@@ -46,8 +46,8 @@ def checkdate(id, date) :
     sqlquery = "EXEC checkOrder @date='"+str(date)+"', @id='"+str(id)+"'"
     return fn.getlistdata(sqlquery)
 
-def checkdays(id, start, end) :
-    sqlquery = "EXEC CheckOrderDays @id='"+str(id)+"', @startDate='"+str(start)+"', @endDate='"+str(end)+"'"
+def directorder(id, start, end) :
+    sqlquery = "EXEC checkOrder @start='"+str(start)+"', @end='"+str(end)+"', @id='"+str(id)+"'"
     return fn.getlistdata(sqlquery)
 
 
@@ -56,6 +56,6 @@ def checksubdate(id, date) :
     sqlquery = "EXEC checkSubOrder @date='"+str(date)+"', @id='"+str(id)+"'"
     return fn.getlistdata(sqlquery)
 
-def checksubdays(id, start, end) :
-    sqlquery = "EXEC CheckSubOrderDays @id='"+str(id)+"', @startDate='"+str(start)+"', @endDate='"+str(end)+"'"
+def dealerorder(id, start, end, option) :
+    sqlquery = "EXEC checkSubOrder @date='"+str(date)+"', @id='"+str(id)+"'"
     return fn.getlistdata(sqlquery)

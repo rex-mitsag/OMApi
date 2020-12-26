@@ -16,10 +16,6 @@ def getledger(ipId) :
     sqlquery = "EXEC GetLedgerDetails @uid = '"+str(ipId)+"'"
     return fn.getlistdata(sqlquery)
 
-def getpkgcost() :
-    sqlquery = "EXEC GetPkgCost"
-    return fn.getlistdata(sqlquery)
-
 def getflavor(inpID) :
     sqlquery = "EXEC GetFlavours @uid='"+str(inpID)+"'"
     return fn.getlistdata(sqlquery)
@@ -41,7 +37,7 @@ def getdealersforss(ipID) :
     return fn.getlistdata(sqlquery)
 
 def getfestival(date) :
-    sqlquery = "EXEC GetFestival @date='"+str(date)+"'"
+    sqlquery = "EXEC SelectFestival @date='"+str(date)+"'"
     return fn.getlistdata(sqlquery)
 
 def logout(inp, id) :
