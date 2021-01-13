@@ -20,6 +20,10 @@ def getflavor(inpID) :
     sqlquery = "EXEC GetFlavours @uid='"+str(inpID)+"'"
     return fn.getlistdata(sqlquery)
 
+def getavailableflavour(inpID) :
+    sqlquery = "EXEC SelectFlavours @uid='"+str(inpID)+"'"
+    return fn.getlistdata(sqlquery)
+
 def getohmenu(inpID) :
     sqlquery = "EXEC SelectOHMenu @id='"+str(inpID)+"'"
     return fn.getlistdata(sqlquery)

@@ -75,6 +75,21 @@ def getFlavors() :
     jsonList = json.dumps(objects_list)
     return jsonList
 
+@app.route('/order/getAvailFlavor')
+def getAvailFlavor() :
+    uid = str(request.args['id'])
+    out = usq.getavailableflavour(uid)
+    objects_list = []
+    for row in out :
+        d = collections.OrderedDict()
+        d["name"] = row[0]
+        d["crt"] = row[1]
+        d["ep"] = row[2]
+        d["bag"] = row[3]
+        objects_list.append(d)
+    jsonList = json.dumps(objects_list)
+    return jsonList
+
 @app.route('/orderhistory/getOHMenu')
 def getOHMenu() :
     uid = str(request.args['id'])
@@ -167,7 +182,9 @@ def logOutUser() :
 
 ##-----------ORDER------------##
 
-@app.route('/order/inputOrderId')
+##-----------to be deleted-----------##
+
+@app.route('/order/inputOrderId') 
 def orderid() :
     orderid = str(request.args['id'])
     orderdate = str(request.args['date'])
@@ -181,7 +198,7 @@ def orderid() :
     out = osq.inputorder(orderid, orderdate, latitude, longitude, amount, crt, ep, bag, rem)
     return str(out[0][0])
 
-@app.route('/order/inputDealerOrderId')
+@app.route('/order/inputDealerOrderId') 
 def dealerorderid() :
     sid = str(request.args['sid'])
     orderid = str(request.args['id'])
@@ -195,6 +212,13 @@ def dealerorderid() :
     rem = str(request.args['rem'])
     out = osq.inputdealerorder(sid, orderid, orderdate, latitude, longitude, amount, crt, ep, bag, rem)
     return str(out[0][0])
+
+@app.route('/order/getOrderBasket')
+def getOrderBasket() :
+    orderid = str(request.args['id'])
+    bkt = str(request.args['basket'])
+    out = osq.inputbasket(orderid, bkt)
+    return str(out)
 
 @app.route('/order/getOrderDetail')
 def getOrderDetail() :
@@ -235,42 +259,87 @@ def getOrderDetail() :
     out = osq.inputorderdetails(orderid, pkg, mm, pd, km, ct, tt, ctk, am, hj, co, mix, epkg, emm, epd, ekm, ect, ett, ectk, eam, ehj, eco, emix, bpkg, bmm, bpd, bkm, bct, btt, bctk, bam, bhj, bco, bmix)
     return str(out)
 
-@app.route('/order/getOrderBasket')
-def getOrderBasket() :
+
+##-------------------------##
+
+@app.route('/order/insertDealerOrder')
+def insertDealerOrder() :
+    sid = str(request.args['sid'])
+    uid = str(request.args['id'])
+    orderdate = str(request.args['date'])
+    location = str(request.args['loc'])
+    amount = str(request.args['amt'])
+    crt = str(request.args['crt'])
+    ep = str(request.args['ep'])
+    bag = str(request.args['bag'])
+    basket = str(request.args['basket'])
+    rem = str(request.args['rem'])
+    out = osq.ipdealerorder(sid, uid, orderdate, location, amount, crt, ep, bag, basket, rem)
+    return str(out[0][0])
+
+@app.route('/order/insertSuperOrder')
+def insertSuperOrder() :
+    uid = str(request.args['id'])
+    orderdate = str(request.args['date'])
+    location = str(request.args['loc'])
+    amount = str(request.args['amt'])
+    crt = str(request.args['crt'])
+    ep = str(request.args['ep'])
+    bag = str(request.args['bag'])
+    basket = str(request.args['basket'])
+    rem = str(request.args['rem'])
+    out = osq.ipsuperorder(uid, orderdate, location, amount, crt, ep, bag, basket, rem)
+    return str(out[0][0])
+
+@app.route('/order/insertOrderDetail')
+def insertOrderDetail() :
     orderid = str(request.args['id'])
-    bkt = str(request.args['basket'])
-    out = osq.inputbasket(orderid, bkt)
+    pkg = str(request.args['pkg'])
+    mm = str(request.args['mm'])
+    pd = str(request.args['pd'])
+    km = str(request.args['km'])
+    ct = str(request.args['ct'])
+    tt = str(request.args['tt'])
+    ctk = str(request.args['ctk'])
+    am = str(request.args['am'])
+    hj = str(request.args['hj'])
+    co = str(request.args['co'])
+    mix = str(request.args['mix'])
+    epkg = str(request.args['epkg'])
+    emm = str(request.args['emm'])
+    epd = str(request.args['epd'])
+    ekm = str(request.args['ekm'])
+    ect = str(request.args['ect'])
+    ett = str(request.args['ett'])
+    ectk = str(request.args['ectk'])
+    eam = str(request.args['eam'])
+    ehj = str(request.args['ehj'])
+    eco = str(request.args['eco'])
+    emix = str(request.args['emix'])
+    bpkg = str(request.args['bpkg'])
+    bmm = str(request.args['bmm'])
+    bpd = str(request.args['bpd'])
+    bkm = str(request.args['bkm'])
+    bct = str(request.args['bct'])
+    btt = str(request.args['btt'])
+    bctk = str(request.args['bctk'])
+    bam = str(request.args['bam'])
+    bhj = str(request.args['bhj'])
+    bco = str(request.args['bco'])
+    bmix = str(request.args['bmix'])
+    out = osq.inputorderdetails(orderid, pkg, mm, pd, km, ct, tt, ctk, am, hj, co, mix, epkg, emm, epd, ekm, ect, ett, ectk, eam, ehj, eco, emix, bpkg, bmm, bpd, bkm, bct, btt, bctk, bam, bhj, bco, bmix)
     return str(out)
+
+##-------------------------##
+
+
+##-----------to be deleted-----------##
 
 @app.route('/orderhistory/getOrderByDate')
 def checkDate() :
     id = str(request.args['id'])
     date = str(request.args['date'])
     out = osq.checkdate(id, date)
-    objects_list = []
-    if len(out) == 0 :
-        return '0'
-    else :
-        for row in out :
-            d = collections.OrderedDict()
-            d["id"] = row[0]
-            d["status"] = row[1]
-            d["crt"] = row[2]
-            d["ep"] = row[3]
-            d["bag"] = row[4]
-            d["date"] = row[5]
-            d["basket"] = row[6]
-            d["remark"] = row[7]
-            objects_list.append(d)
-        jsonList = json.dumps(objects_list)
-        return jsonList
-
-@app.route('/orderhistory/getDirectOrder')
-def getDirectOrder() :
-    id = str(request.args['id'])
-    start = str(request.args['startdate'])
-    end = str(request.args['enddate'])
-    out = osq.checkdate(id, start, end)
     objects_list = []
     if len(out) == 0 :
         return '0'
@@ -313,13 +382,41 @@ def checkSubDate() :
         jsonList = json.dumps(objects_list)
         return jsonList
 
+
+##-----------------------------##
+
+@app.route('/orderhistory/getDirectOrder')
+def getDirectOrder() :
+    id = str(request.args['id'])
+    start = str(request.args['start'])
+    end = str(request.args['end'])
+    out = osq.directorder(id, start, end)
+    objects_list = []
+    if len(out) == 0 :
+        return '0'
+    else :
+        for row in out :
+            d = collections.OrderedDict()
+            d["id"] = row[0]
+            d["forward"]  = row[1]
+            d["status"] = row[2]
+            d["crt"] = row[3]
+            d["ep"] = row[4]
+            d["bag"] = row[5]
+            d["basket"] = row[6]
+            d["date"] = row[7]
+            d["remark"] = row[8]
+            objects_list.append(d)                  
+        jsonList = json.dumps(objects_list)
+        return jsonList
+
 @app.route('/orderhistory/getDealerOrder')
 def getDealerOrder() :
     id = str(request.args['id'])
-    start = str(request.args['startdate'])
-    end = str(request.args['enddate'])
+    start = str(request.args['start'])
+    end = str(request.args['end'])
     option = str(request.args['option'])
-    out = osq.checksubdate(id, start, end, option)
+    out = osq.dealerorder(id, start, end, option)
     objects_list = []
     if(len(out) == 0) :
         return '0'
@@ -327,14 +424,15 @@ def getDealerOrder() :
         for row in out :
             d = collections.OrderedDict()
             d["id"] = row[0]
-            d["status"] = row[1]
-            d["name"] = row[2]
-            d["crt"] = row[3]
-            d["ep"] = row[4]
-            d["bag"] = row[5]
-            d["date"] = row[6]
+            d["forward"]  = row[1]
+            d["status"] = row[2]
+            d["name"] = row[3]
+            d["crt"] = row[4]
+            d["ep"] = row[5]
+            d["bag"] = row[6]            
             d["basket"] = row[7]
-            d["remark"] = row[8]
+            d["date"] = row[8]
+            d["remark"] = row[9]
             objects_list.append(d)
         jsonList = json.dumps(objects_list)
         return jsonList
