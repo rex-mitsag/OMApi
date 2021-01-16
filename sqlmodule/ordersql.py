@@ -27,6 +27,10 @@ def inputorderdetails(id, pkg, mm, pd, km, ct, tt, ctk, am, hj, co, mix, epkg, e
     sqlquery = "EXEC InsertOrderDetails @id='"+str(id)+"', @pkg='"+str(pkg)+"', @mm="+str(mm)+", @pd="+str(pd)+", @km="+str(km)+", @ct="+str(ct)+", @tt="+str(tt)+", @ctk="+str(ctk)+", @am="+str(am)+", @hj="+str(hj)+", @co="+str(co)+", @mix="+str(mix)+", @epkg='"+str(epkg)+"', @emm="+str(emm)+", @epd="+str(epd)+", @ekm="+str(ekm)+", @ect="+str(ect)+", @ett="+str(ett)+", @ectk="+str(ectk)+", @eam="+str(eam)+", @ehj="+str(ehj)+", @eco="+str(eco)+", @emix="+str(emix)+", @bpkg='"+str(bpkg)+"', @bmm="+str(bmm)+", @bpd="+str(bpd)+", @bkm="+str(bkm)+", @bct="+str(bct)+", @btt="+str(btt)+", @bctk="+str(bctk)+", @bam="+str(bam)+", @bhj="+str(bhj)+", @bco="+str(bco)+", @bmix="+str(bmix)
     return fn.updatedata(sqlquery)
 
+def ippaymentdetails(uid, date, utr, amt) :
+    sqlquery = "EXEC InsertPayment @uid='"+str(uid)+"', @date='"+str(date)+"', @utr='"+str(utr)+"', @amt="+str(amt)
+    return fn.updatedata(sqlquery)
+
 def updateledger(id, ledger) :
     sqlquery = "EXEC UpdateLedger @ledger="+str(ledger)+", @uid='"+str(id)+"'"
     return fn.updatedata(sqlquery)
@@ -54,7 +58,7 @@ def countord(id, date) :
     sqlquery = "EXEC CountOrders @uid='"+str(id)+"', @date='"+str(date)+"'"
     return fn.getlistdata(sqlquery)
 
-##super
+##direct
 def checkdate(id, date) :
     sqlquery = "EXEC checkOrder @date='"+str(date)+"', @id='"+str(id)+"'"
     return fn.getlistdata(sqlquery)

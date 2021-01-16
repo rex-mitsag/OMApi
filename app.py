@@ -453,6 +453,15 @@ def updateDBalance() :
     out = osq.updatedailybalance(id, ledger, date, added)
     return str(out)
 
+@app.route('/order/updatePayment')
+def updatePayment() :
+    uid = str(request.args['uid'])
+    date = str(request.args['date'])
+    utr = str(request.args['utr'])
+    amt = str(request.args['amt'])
+    out = osq.ippaymentdetails(uid, date, utr, amt)
+    return str(out)
+
 @app.route('/order/getOrderDetails')
 def getOrderDetails() :
     oid = str(request.args['oid'])
