@@ -47,3 +47,9 @@ def getfestival(date) :
 def logout(inp, id) :
     sqlquery = "EXEC LogOut @input="+str(inp)+", @id='"+str(id)+"'"
     return fn.updatedata(sqlquery)
+
+#--------NEW FUNCTIONS--------#
+
+def register(pre, uname, mobile, aadhar, fname, fstatus, p1, p2, dname, oaddress, ostate, opin, gaddress, gstate, gpin, gst, pan, fssai, fsdate, dcode) :
+    sqlquery = "EXEC RegisterUser @pre='"+str(pre)+"', @uname='"+str(uname)+"',	@mobile="+str(mobile)+", @aadhar='"+str(aadhar)+"',	@fname='"+str(fname)+"', @fstatus='"+str(fstatus)+"', @p1='"+str(p1)+"', @p2='"+str(p2)+"',	@dname='"+str(dname)+"', @oaddress='"+str(oaddress)+"',	@ostate='"+str(ostate)+"', @opin="+str(opin)+", @gaddress='"+str(gaddress)+"', @gstate='"+str(gstate)+"', @gpin="+str(gpin)+",	@gst='"+str(gst)+"', @pan='"+str(pan)+"', @fssai='"+str(fssai)+"',	@fsdate='"+str(fsdate)+"', @devicecode='"+str(dcode)+"'"
+    return fn.updatedata(sqlquery)

@@ -163,7 +163,6 @@ def getDealerSS() :
 def getFestivals() :
     date = str(request.args['date'])
     out = usq.getfestival(date)
-    objects_list = []
     if len(out) == 0 :
         return '0'
     else :
@@ -179,6 +178,31 @@ def logOutUser() :
     id = str(request.args['id'])
     out = usq.logout(input, id)
     return str(out[0][0])
+
+@app.route('/user/registerUser')
+def registerUser() :
+    pre = str(request.args['pre'])
+    uname = str(request.args['uname'])
+    mobile = str(request.args['mobile'])
+    aadhar = str(request.args['aadhar'])
+    fname = str(request.args['fname'])
+    fstatus = str(request.args['fstatus'])
+    p1 = str(request.args['p1'])
+    p2 = str(request.args['p2'])
+    dname = str(request.args['dname'])
+    oaddress = str(request.args['oaddress'])
+    ostate = str(request.args['ostate'])
+    opin = str(request.args['opin'])
+    gaddress = str(request.args['gaddress'])
+    gstate = str(request.args['gstate'])
+    gpin = str(request.args['gpin'])
+    gst = str(request.args['gst'])
+    pan = str(request.args['pan'])
+    fssai = str(request.args['fssai'])
+    fsdate = str(request.args['fsdate'])
+    dcode = str(request.args['dcode'])
+    out = usq.register(pre, uname, mobile, aadhar, fname, fstatus, p1, p2, dname, oaddress, ostate, opin, gaddress, gstate, gpin, gst, pan, fssai, fsdate, dcode)
+    return str(out)
 
 ##-----------ORDER------------##
 
