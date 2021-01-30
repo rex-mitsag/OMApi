@@ -58,7 +58,7 @@ def getLedger() :
     out = usq.getledger(uid)
     jsonList = {
         "minAmt" : out[0][0],
-        "balance" :  out[0][1],
+        "balance" : out[0][1]
     }
     json_out = json.dumps(jsonList)
     return json_out
@@ -71,21 +71,6 @@ def getFlavors() :
     for row in out :
         d = collections.OrderedDict()
         d["name"] = row[0]
-        objects_list.append(d)
-    jsonList = json.dumps(objects_list)
-    return jsonList
-
-@app.route('/order/getAvailFlavor')
-def getAvailFlavor() :
-    uid = str(request.args['id'])
-    out = usq.getavailableflavour(uid)
-    objects_list = []
-    for row in out :
-        d = collections.OrderedDict()
-        d["name"] = row[0]
-        d["crt"] = row[1]
-        d["ep"] = row[2]
-        d["bag"] = row[3]
         objects_list.append(d)
     jsonList = json.dumps(objects_list)
     return jsonList
@@ -159,6 +144,119 @@ def getDealerSS() :
     jsonList = json.dumps(objects_list)
     return jsonList
 
+##----------------------------------------NEW----------------------------------------##
+
+@app.route('/user/loginUser')
+def loginUser() :
+    mode = str(request.args['mode'])
+    value = str(request.args['value'])
+    out = usq.loginuser(mode, value)
+    jsonList = {
+        "id" : out[0][0],
+        "name" : out[0][1]
+    }
+    json_out = json.dumps(jsonList)
+    return json_out
+
+@app.route('/user/getUserMenu')
+def getUserMenu() :
+    uid = str(request.args['uid'])
+    option = str(request.args['option'])
+    out = usq.getusermenu(uid, option)
+    objects_list = []
+    for row in out:
+        d = collections.OrderedDict()
+        d["menu"] = row[0]
+        d["route"] = row[1]
+        d["arg"] = row[2]
+        objects_list.append(d)
+    jsonList = json.dumps(objects_list)
+    return jsonList
+
+@app.route('/user/getPkgDetails')
+def getPkgDetails() :
+    uid = str(request.args['uid'])
+    out = usq.getpkgdetails(uid)
+    objects_list = []
+    for row in out :
+        d = collections.OrderedDict()
+        d["name"] = row[0]
+        d["rate"] = row[1]
+        d["discount"] = row[2]
+        d["gst"] = row[3]
+        objects_list.append(d)
+    jsonList = json.dumps(objects_list)
+    return jsonList
+
+@app.route('/user/getLedgerDetails')
+def getLedgerDetails() :
+    uid = str(request.args['uid'])
+    out = usq.getledgerdetails(uid)
+    jsonList = {
+        "minAmt" : out[0][0],
+        "maxAmt" : out[0][1],
+        "balance" : out[0][2]
+    }
+    json_out = json.dumps(jsonList)
+    return json_out
+
+@app.route('/order/getAvailFlavor')
+def getAvailFlavor() :
+    uid = str(request.args['id'])
+    out = usq.getavailableflavour(uid)
+    objects_list = []
+    for row in out :
+        d = collections.OrderedDict()
+        d["name"] = row[0]
+        d["crt"] = row[1]
+        d["ep"] = row[2]
+        d["bag"] = row[3]
+        objects_list.append(d)
+    jsonList = json.dumps(objects_list)
+    return jsonList
+
+@app.route('/orderhistory/getOrderHistoryMenu')
+def getOrderHistoryMenu() :
+    uid = str(request.args['id'])
+    out = usq.getorderhistorymenu(uid)
+    objects_list = []
+    for row in out :
+        d = collections.OrderedDict()
+        d["menu"] = row[0]
+        d["route"] = row[1]
+        d["arg"] = row[2]
+        objects_list.append(d)
+    jsonList = json.dumps(objects_list)
+    return jsonList
+
+@app.route('/user/getUpperID')
+def getUpperID() :
+    dealer = str(request.args['dealer'])
+    out = usq.getupperid(dealer)
+    objects_list = []
+    for row in out :
+        d = collections.OrderedDict()
+        d["id"] = row[0]
+        d["name"] = row[1]
+        objects_list.append(d)
+    jsonList = json.dumps(objects_list)
+    return jsonList
+
+@app.route('/user/getDealerNames')
+def getDealerNames() :
+    id = str(request.args['id'])
+    out = usq.getdealername(id)
+    objects_list = []
+    for row in out :
+        d = collections.OrderedDict()
+        d["id"] = row[0]
+        d["name"] = row[1]
+        d["amount"] = row[2]
+        d["date"] = row[3]
+        objects_list.append(d)
+    jsonList = json.dumps(objects_list)
+    return jsonList
+
 @app.route('/user/getFestivals')
 def getFestivals() :
     date = str(request.args['date'])
@@ -202,7 +300,35 @@ def registerUser() :
     fsdate = str(request.args['fsdate'])
     dcode = str(request.args['dcode'])
     out = usq.register(pre, uname, mobile, aadhar, fname, fstatus, p1, p2, dname, oaddress, ostate, opin, gaddress, gstate, gpin, gst, pan, fssai, fsdate, dcode)
-    return str(out)
+    return str(out[0][0])
+
+@app.route('/user/getOrdersForAuth')
+def getOrdersForAuth() :
+    id = str(request.args['id'])
+    list = str(request.args['list'])
+    opt = str(request.args['option'])
+    date = str(request.args['date'])
+    out = usq.getordersforauth(id, list, opt, date)
+    objects_list = []
+    if len(out) == 0 :
+        return '0'
+    else :
+        for row in out :
+            d = collections.OrderedDict()
+            d["id"] = row[0]
+            d["name"] = row[1]
+            d["ordid"] = row[2]
+            d["basket"] = row[3]
+            d["amount"] = row[4]
+            d["CRT"] = row[5]
+            d["EP"] = row[6]
+            d["BAG"] = row[7]
+            d["rem"] = row[8]
+            d["forward"] = row[9]
+            d["status"] = row[10]
+            objects_list.append(d)
+        jsonList = json.dumps(objects_list)
+        return jsonList
 
 ##-----------ORDER------------##
 
@@ -315,8 +441,8 @@ def insertSuperOrder() :
     out = osq.ipsuperorder(uid, orderdate, location, amount, crt, ep, bag, basket, rem)
     return str(out[0][0])
 
-@app.route('/order/insertOrderDetail')
-def insertOrderDetail() :
+@app.route('/order/insertFlavorOrderDetail')
+def insertFlavorOrderDetail() :
     orderid = str(request.args['id'])
     pkg = str(request.args['pkg'])
     mm = str(request.args['mm'])
@@ -351,7 +477,7 @@ def insertOrderDetail() :
     bhj = str(request.args['bhj'])
     bco = str(request.args['bco'])
     bmix = str(request.args['bmix'])
-    out = osq.inputorderdetails(orderid, pkg, mm, pd, km, ct, tt, ctk, am, hj, co, mix, epkg, emm, epd, ekm, ect, ett, ectk, eam, ehj, eco, emix, bpkg, bmm, bpd, bkm, bct, btt, bctk, bam, bhj, bco, bmix)
+    out = osq.inputflavororderdetails(orderid, pkg, mm, pd, km, ct, tt, ctk, am, hj, co, mix, epkg, emm, epd, ekm, ect, ett, ectk, eam, ehj, eco, emix, bpkg, bmm, bpd, bkm, bct, btt, bctk, bam, bhj, bco, bmix)
     return str(out)
 
 ##-------------------------##
@@ -468,6 +594,13 @@ def updateLedger() :
     out = osq.updateledger(id, ledger)
     return str(out)
 
+@app.route('/order/UpdateBalance')
+def UpdateBalance() :
+    id = str(request.args['id'])
+    ledger = str(request.args['ledger'])
+    out = osq.updatebalance(id, ledger)
+    return str(out)
+
 @app.route('/order/updateDBalance')
 def updateDBalance() :
     id = str(request.args['id'])
@@ -490,6 +623,28 @@ def updatePayment() :
 def getOrderDetails() :
     oid = str(request.args['oid'])
     out = osq.getorderdetails(oid)
+    objects_list = []
+    for row in out :
+        d = collections.OrderedDict()
+        d["pkg"] = row[0]
+        d["mm"] = row[1]
+        d["tp"] = row[2]
+        d["km"] = row[3]
+        d["ct"] = row[4]
+        d["tt"] = row[5]
+        d["ctk"] = row[6]
+        d["am"] = row[7]
+        d["hj"] = row[8]
+        d["co"] = row[9]
+        d["mix"] = row[10]
+        objects_list.append(d)
+    jsonList = json.dumps(objects_list)
+    return jsonList
+
+@app.route('/order/selectOrderDetails')
+def selectOrderDetails() :
+    oid = str(request.args['oid'])
+    out = osq.selectorderdetails(oid)
     objects_list = []
     for row in out :
         d = collections.OrderedDict()
