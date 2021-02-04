@@ -36,6 +36,10 @@ def updateauth(ip, rem, oid) :
 
 ##----NEW FUNCTIONS----##
 
+def updateordauth(ip, rem, oid, uname, utype) :
+    sqlquery = "EXEC UpdateOrdAuthorization @auth='"+str(ip)+"', @remark='"+str(rem)+"', @ordid='"+str(oid)+"', @uname='"+str(uname)+"', @utype='"+str(utype)+"'"
+    return fn.updatedata(sqlquery)
+
 def ipsuperorder(inputID, inputDate, inputloc, inputAmt, crt, ep, bag, basket, rem) :
     sqlquery = "EXEC InsertSuperOrder @uid = '"+str(inputID)+"', @date = '"+str(inputDate)+"', @loc = '"+str(inputloc)+"', @amt= "+str(inputAmt)+", @crt= "+str(crt)+", @ep= "+str(ep)+", @bag= "+str(bag)+", @basket="+str(basket)+", @rem='"+str(rem)+"'"
     return fn.getlistdata(sqlquery)

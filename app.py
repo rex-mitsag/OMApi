@@ -317,12 +317,12 @@ def getOrdersForAuth() :
             d = collections.OrderedDict()
             d["id"] = row[0]
             d["name"] = row[1]
-            d["ordid"] = row[2]
-            d["basket"] = row[3]
-            d["amount"] = row[4]
-            d["CRT"] = row[5]
-            d["EP"] = row[6]
-            d["BAG"] = row[7]
+            d["ordid"] = row[2]            
+            d["amount"] = row[3]
+            d["CRT"] = row[4]
+            d["EP"] = row[5]
+            d["BAG"] = row[6]
+            d["BASKET"] = row[7]
             d["rem"] = row[8]
             d["forward"] = row[9]
             d["status"] = row[10]
@@ -330,7 +330,10 @@ def getOrdersForAuth() :
         jsonList = json.dumps(objects_list)
         return jsonList
 
-##-----------ORDER------------##
+
+##------------------------------------------------------------------------##
+##---------------------------------ORDER----------------------------------##
+##------------------------------------------------------------------------##
 
 ##-----------to be deleted-----------##
 
@@ -409,8 +412,94 @@ def getOrderDetail() :
     out = osq.inputorderdetails(orderid, pkg, mm, pd, km, ct, tt, ctk, am, hj, co, mix, epkg, emm, epd, ekm, ect, ett, ectk, eam, ehj, eco, emix, bpkg, bmm, bpd, bkm, bct, btt, bctk, bam, bhj, bco, bmix)
     return str(out)
 
+@app.route('/orderhistory/getOrderByDate')
+def checkDate() :
+    id = str(request.args['id'])
+    date = str(request.args['date'])
+    out = osq.checkdate(id, date)
+    objects_list = []
+    if len(out) == 0 :
+        return '0'
+    else :
+        for row in out :
+            d = collections.OrderedDict()
+            d["id"] = row[0]
+            d["status"] = row[1]
+            d["crt"] = row[2]
+            d["ep"] = row[3]
+            d["bag"] = row[4]
+            d["date"] = row[5]
+            d["basket"] = row[6]
+            d["remark"] = row[7]
+            objects_list.append(d)
+        jsonList = json.dumps(objects_list)
+        return jsonList
 
-##-------------------------##
+@app.route('/orderhistory/getSubOrderByDate')
+def checkSubDate() :
+    id = str(request.args['id'])
+    date = str(request.args['date'])
+    out = osq.checksubdate(id, date)
+    objects_list = []
+    if(len(out) == 0) :
+        return '0'
+    else :
+        for row in out :
+            d = collections.OrderedDict()
+            d["id"] = row[0]
+            d["status"] = row[1]
+            d["name"] = row[2]
+            d["crt"] = row[3]
+            d["ep"] = row[4]
+            d["bag"] = row[5]
+            d["date"] = row[6]
+            d["basket"] = row[7]
+            d["remark"] = row[8]
+            objects_list.append(d)
+        jsonList = json.dumps(objects_list)
+        return jsonList
+
+@app.route('/order/updateLedger')
+def updateLedger() :
+    id = str(request.args['id'])
+    ledger = str(request.args['ledger'])
+    out = osq.updateledger(id, ledger)
+    return str(out)
+
+@app.route('/order/getOrderDetails')
+def getOrderDetails() :
+    oid = str(request.args['oid'])
+    out = osq.getorderdetails(oid)
+    objects_list = []
+    for row in out :
+        d = collections.OrderedDict()
+        d["pkg"] = row[0]
+        d["mm"] = row[1]
+        d["tp"] = row[2]
+        d["km"] = row[3]
+        d["ct"] = row[4]
+        d["tt"] = row[5]
+        d["ctk"] = row[6]
+        d["am"] = row[7]
+        d["hj"] = row[8]
+        d["co"] = row[9]
+        d["mix"] = row[10]
+        objects_list.append(d)
+    jsonList = json.dumps(objects_list)
+    return jsonList
+
+@app.route('/order/updateUserAuth')
+def updateUserAuth() :
+    auth = str(request.args['auth'])
+    rem = str(request.args['remarks'])
+    oid = str(request.args['oid'])
+    out = osq.updateauth(auth, rem, oid)
+    return str(out)
+
+
+
+
+##-------------------------NEW-------------------------##
 
 @app.route('/order/insertDealerOrder')
 def insertDealerOrder() :
@@ -480,61 +569,6 @@ def insertFlavorOrderDetail() :
     out = osq.inputflavororderdetails(orderid, pkg, mm, pd, km, ct, tt, ctk, am, hj, co, mix, epkg, emm, epd, ekm, ect, ett, ectk, eam, ehj, eco, emix, bpkg, bmm, bpd, bkm, bct, btt, bctk, bam, bhj, bco, bmix)
     return str(out)
 
-##-------------------------##
-
-
-##-----------to be deleted-----------##
-
-@app.route('/orderhistory/getOrderByDate')
-def checkDate() :
-    id = str(request.args['id'])
-    date = str(request.args['date'])
-    out = osq.checkdate(id, date)
-    objects_list = []
-    if len(out) == 0 :
-        return '0'
-    else :
-        for row in out :
-            d = collections.OrderedDict()
-            d["id"] = row[0]
-            d["status"] = row[1]
-            d["crt"] = row[2]
-            d["ep"] = row[3]
-            d["bag"] = row[4]
-            d["date"] = row[5]
-            d["basket"] = row[6]
-            d["remark"] = row[7]
-            objects_list.append(d)
-        jsonList = json.dumps(objects_list)
-        return jsonList
-
-@app.route('/orderhistory/getSubOrderByDate')
-def checkSubDate() :
-    id = str(request.args['id'])
-    date = str(request.args['date'])
-    out = osq.checksubdate(id, date)
-    objects_list = []
-    if(len(out) == 0) :
-        return '0'
-    else :
-        for row in out :
-            d = collections.OrderedDict()
-            d["id"] = row[0]
-            d["status"] = row[1]
-            d["name"] = row[2]
-            d["crt"] = row[3]
-            d["ep"] = row[4]
-            d["bag"] = row[5]
-            d["date"] = row[6]
-            d["basket"] = row[7]
-            d["remark"] = row[8]
-            objects_list.append(d)
-        jsonList = json.dumps(objects_list)
-        return jsonList
-
-
-##-----------------------------##
-
 @app.route('/orderhistory/getDirectOrder')
 def getDirectOrder() :
     id = str(request.args['id'])
@@ -587,13 +621,6 @@ def getDealerOrder() :
         jsonList = json.dumps(objects_list)
         return jsonList
 
-@app.route('/order/updateLedger')
-def updateLedger() :
-    id = str(request.args['id'])
-    ledger = str(request.args['ledger'])
-    out = osq.updateledger(id, ledger)
-    return str(out)
-
 @app.route('/order/UpdateBalance')
 def UpdateBalance() :
     id = str(request.args['id'])
@@ -619,28 +646,6 @@ def updatePayment() :
     out = osq.ippaymentdetails(uid, date, utr, amt)
     return str(out)
 
-@app.route('/order/getOrderDetails')
-def getOrderDetails() :
-    oid = str(request.args['oid'])
-    out = osq.getorderdetails(oid)
-    objects_list = []
-    for row in out :
-        d = collections.OrderedDict()
-        d["pkg"] = row[0]
-        d["mm"] = row[1]
-        d["tp"] = row[2]
-        d["km"] = row[3]
-        d["ct"] = row[4]
-        d["tt"] = row[5]
-        d["ctk"] = row[6]
-        d["am"] = row[7]
-        d["hj"] = row[8]
-        d["co"] = row[9]
-        d["mix"] = row[10]
-        objects_list.append(d)
-    jsonList = json.dumps(objects_list)
-    return jsonList
-
 @app.route('/order/selectOrderDetails')
 def selectOrderDetails() :
     oid = str(request.args['oid'])
@@ -663,12 +668,14 @@ def selectOrderDetails() :
     jsonList = json.dumps(objects_list)
     return jsonList
 
-@app.route('/order/updateUserAuth')
-def updateUserAuth() :
+@app.route('/order/updateOrdAuth')
+def updateOrdAuth() :
     auth = str(request.args['auth'])
     rem = str(request.args['remarks'])
     oid = str(request.args['oid'])
-    out = osq.updateauth(auth, rem, oid)
+    uname = str(request.args['uname'])
+    utype = str(request.args['utype'])
+    out = osq.updateordauth(auth, rem, oid, uname, utype)
     return str(out)
 
 @app.route('/order/deleteOrder')
