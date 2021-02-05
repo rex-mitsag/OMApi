@@ -82,6 +82,10 @@ def getdealername(ipID) :
     sqlquery = "EXEC SelectDealerNames @id='"+str(ipID)+"'"
     return fn.getlistdata(sqlquery)
 
+def getsupername(ipID) :
+    sqlquery = "EXEC SelectSuperNames @id='"+str(ipID)+"'"
+    return fn.getlistdata(sqlquery)
+
 def getordersforauth(ipID, list, option, date) :
     sqlquery = "EXEC SelectOrderForAuthorize @uid='"+str(ipID)+"', @list='"+str(list)+"', @option='"+str(option)+"', @date='"+str(date)+"'"
     return fn.getlistdata(sqlquery)

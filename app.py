@@ -257,6 +257,21 @@ def getDealerNames() :
     jsonList = json.dumps(objects_list)
     return jsonList
 
+@app.route('/user/getSuperNames')
+def getSuperNames() :
+    id = str(request.args['id'])
+    out = usq.getsupername(id)
+    objects_list = []
+    for row in out :
+        d = collections.OrderedDict()
+        d["id"] = row[0]
+        d["name"] = row[1]
+        d["amount"] = row[2]
+        d["date"] = row[3]
+        objects_list.append(d)
+    jsonList = json.dumps(objects_list)
+    return jsonList
+
 @app.route('/user/getFestivals')
 def getFestivals() :
     date = str(request.args['date'])
@@ -601,6 +616,33 @@ def getDealerOrder() :
     end = str(request.args['end'])
     option = str(request.args['option'])
     out = osq.dealerorder(id, start, end, option)
+    objects_list = []
+    if(len(out) == 0) :
+        return '0'
+    else :
+        for row in out :
+            d = collections.OrderedDict()
+            d["id"] = row[0]
+            d["forward"]  = row[1]
+            d["status"] = row[2]
+            d["name"] = row[3]
+            d["crt"] = row[4]
+            d["ep"] = row[5]
+            d["bag"] = row[6]            
+            d["basket"] = row[7]
+            d["date"] = row[8]
+            d["remark"] = row[9]
+            objects_list.append(d)
+        jsonList = json.dumps(objects_list)
+        return jsonList
+
+@app.route('/orderhistory/getSuperOrder')
+def getSuperOrder() :
+    id = str(request.args['id'])
+    start = str(request.args['start'])
+    end = str(request.args['end'])
+    option = str(request.args['option'])
+    out = osq.superorder(id, start, end, option)
     objects_list = []
     if(len(out) == 0) :
         return '0'

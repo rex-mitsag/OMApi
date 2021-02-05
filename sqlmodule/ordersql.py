@@ -95,3 +95,9 @@ def checksubdate(id, date) :
 def dealerorder(id, start, end, option) :
     sqlquery = "EXEC SelectDealerOrdersHistory @id='"+str(id)+"', @start='"+str(start)+"', @end='"+str(end)+"', @option='"+str(option)+"'"
     return fn.getlistdata(sqlquery)
+
+
+##super
+def superorder(id, start, end, option) :
+    sqlquery = "EXEC SelectSuperOrdersHistory @id='"+str(id)+"', @start='"+str(start)+"', @end='"+str(end)+"', @option='"+str(option)+"'"
+    return fn.getlistdata(sqlquery)
