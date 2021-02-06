@@ -251,8 +251,9 @@ def getDealerNames() :
         d = collections.OrderedDict()
         d["id"] = row[0]
         d["name"] = row[1]
-        d["amount"] = row[2]
-        d["date"] = row[3]
+        d["fname"] = row[2]
+        d["amount"] = row[3]
+        d["date"] = row[4]
         objects_list.append(d)
     jsonList = json.dumps(objects_list)
     return jsonList
@@ -266,8 +267,9 @@ def getSuperNames() :
         d = collections.OrderedDict()
         d["id"] = row[0]
         d["name"] = row[1]
-        d["amount"] = row[2]
-        d["date"] = row[3]
+        d["fname"] = row[2]
+        d["amount"] = row[3]
+        d["date"] = row[4]
         objects_list.append(d)
     jsonList = json.dumps(objects_list)
     return jsonList
@@ -605,6 +607,7 @@ def getDirectOrder() :
             d["basket"] = row[6]
             d["date"] = row[7]
             d["remark"] = row[8]
+            d["remarkedby"] = row[9]
             objects_list.append(d)                  
         jsonList = json.dumps(objects_list)
         return jsonList
@@ -632,6 +635,8 @@ def getDealerOrder() :
             d["basket"] = row[7]
             d["date"] = row[8]
             d["remark"] = row[9]
+            d["remarkedby"] = row[10]
+            d["fname"] = row[11]
             objects_list.append(d)
         jsonList = json.dumps(objects_list)
         return jsonList
@@ -659,6 +664,8 @@ def getSuperOrder() :
             d["basket"] = row[7]
             d["date"] = row[8]
             d["remark"] = row[9]
+            d["remarkedby"] = row[10]
+            d["fname"] = row[11]
             objects_list.append(d)
         jsonList = json.dumps(objects_list)
         return jsonList
