@@ -151,12 +151,15 @@ def loginUser() :
     mode = str(request.args['mode'])
     value = str(request.args['value'])
     out = usq.loginuser(mode, value)
-    jsonList = {
-        "id" : out[0][0],
-        "name" : out[0][1]
-    }
-    json_out = json.dumps(jsonList)
-    return json_out
+    objects_list = []
+    for row in out:
+        d = collections.OrderedDict()
+        d["id"] = row[0]
+        d["name"] = row[1]
+        d["fname"] = row[2]
+        objects_list.append(d)
+    jsonList = json.dumps(objects_list)
+    return jsonList
 
 @app.route('/user/getUserMenu')
 def getUserMenu() :
@@ -324,8 +327,35 @@ def getOrdersForAuth() :
     id = str(request.args['id'])
     list = str(request.args['list'])
     opt = str(request.args['option'])
+    out = usq.getordersforauth(id, list, opt)
+    objects_list = []
+    if len(out) == 0 :
+        return '0'
+    else :
+        for row in out :
+            d = collections.OrderedDict()
+            d["id"] = row[0]
+            d["name"] = row[1]
+            d["ordid"] = row[2]            
+            d["amount"] = row[3]
+            d["CRT"] = row[4]
+            d["EP"] = row[5]
+            d["BAG"] = row[6]
+            d["BASKET"] = row[7]
+            d["rem"] = row[8]
+            d["forward"] = row[9]
+            d["status"] = row[10]
+            objects_list.append(d)
+        jsonList = json.dumps(objects_list)
+        return jsonList
+
+@app.route('/user/getAcceptedOrders')
+def getAcceptedOrders() :
+    id = str(request.args['id'])
+    list = str(request.args['list'])
+    opt = str(request.args['option'])
     date = str(request.args['date'])
-    out = usq.getordersforauth(id, list, opt, date)
+    out = usq.getacceptedorders(id, list, opt, date)
     objects_list = []
     if len(out) == 0 :
         return '0'
