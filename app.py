@@ -161,6 +161,12 @@ def loginUser() :
     jsonList = json.dumps(objects_list)
     return jsonList
 
+@app.route('/user/setLogin')
+def setLogin() :
+    id = str(request.args['id'])
+    out = usq.setlogin(id)
+    return str(out[0][0])
+
 @app.route('/user/getUserMenu')
 def getUserMenu() :
     uid = str(request.args['uid'])

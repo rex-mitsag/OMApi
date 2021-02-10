@@ -54,6 +54,10 @@ def loginuser(mode, value) :
     sqlquery = "EXEC LoginUser @mode="+str(mode)+", @value='"+str(value)+"'"
     return fn.getlistdata(sqlquery)
 
+def setlogin(id) :
+    sqlquery = "EXEC SetLogin @id='"+str(id)+"'"
+    return fn.updatedata(sqlquery)
+
 def getusermenu(ipId, ipOpt) :
     sqlquery = "EXEC SelectMainMenu @Uid = '"+str(ipId)+"', @Opt = "+str(ipOpt)
     return fn.getlistdata(sqlquery)
