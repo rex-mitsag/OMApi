@@ -247,6 +247,7 @@ def getUpperID() :
         d = collections.OrderedDict()
         d["id"] = row[0]
         d["name"] = row[1]
+        d["fname"] = row[2]
         objects_list.append(d)
     jsonList = json.dumps(objects_list)
     return jsonList
