@@ -342,15 +342,16 @@ def getOrdersForAuth() :
             d = collections.OrderedDict()
             d["id"] = row[0]
             d["name"] = row[1]
-            d["ordid"] = row[2]            
-            d["amount"] = row[3]
-            d["CRT"] = row[4]
-            d["EP"] = row[5]
-            d["BAG"] = row[6]
-            d["BASKET"] = row[7]
-            d["rem"] = row[8]
-            d["forward"] = row[9]
-            d["status"] = row[10]
+            d["fname"] = row[2]
+            d["ordid"] = row[3]            
+            d["amount"] = row[4]
+            d["CRT"] = row[5]
+            d["EP"] = row[6]
+            d["BAG"] = row[7]
+            d["BASKET"] = row[8]
+            d["rem"] = row[9]
+            d["forward"] = row[10]
+            d["status"] = row[11]
             objects_list.append(d)
         jsonList = json.dumps(objects_list)
         return jsonList
@@ -370,15 +371,16 @@ def getAcceptedOrders() :
             d = collections.OrderedDict()
             d["id"] = row[0]
             d["name"] = row[1]
-            d["ordid"] = row[2]            
-            d["amount"] = row[3]
-            d["CRT"] = row[4]
-            d["EP"] = row[5]
-            d["BAG"] = row[6]
-            d["BASKET"] = row[7]
-            d["rem"] = row[8]
-            d["forward"] = row[9]
-            d["status"] = row[10]
+            d["fname"] = row[2]
+            d["ordid"] = row[3]            
+            d["amount"] = row[4]
+            d["CRT"] = row[5]
+            d["EP"] = row[6]
+            d["BAG"] = row[7]
+            d["BASKET"] = row[8]
+            d["rem"] = row[9]
+            d["forward"] = row[10]
+            d["status"] = row[11]
             objects_list.append(d)
         jsonList = json.dumps(objects_list)
         return jsonList
