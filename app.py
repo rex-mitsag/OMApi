@@ -193,6 +193,7 @@ def getPkgDetails() :
         d["rate"] = row[1]
         d["discount"] = row[2]
         d["gst"] = row[3]
+        d["tcs"] = row[4]
         objects_list.append(d)
     jsonList = json.dumps(objects_list)
     return jsonList
