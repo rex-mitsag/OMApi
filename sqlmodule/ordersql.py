@@ -32,6 +32,13 @@ def updateauth(ip, rem, oid) :
     sqlquery = "EXEC UpdateAuth @auth='"+str(ip)+"', @remark='"+str(rem)+"', @ordid='"+str(oid)+"'"
     return fn.updatedata(sqlquery)
 
+def deleteord(oid, id) :
+    sqlquery = "EXEC DeleteOrder @ordid='"+str(oid)+"', @id='"+str(id)+"'"
+    return fn.updatedata(sqlquery)
+
+def countord(id, date) :
+    sqlquery = "EXEC CountOrders @uid='"+str(id)+"', @date='"+str(date)+"'"
+    return fn.getlistdata(sqlquery)
 
 
 ##----NEW FUNCTIONS----##
@@ -64,13 +71,10 @@ def selectorderdetails(oid) :
     sqlquery = "EXEC SelectOrderFlavorDetails @oid='"+str(oid)+"'"
     return fn.getlistdata(sqlquery)
 
-def deleteord(oid, id) :
-    sqlquery = "EXEC DeleteOrder @ordid='"+str(oid)+"', @id='"+str(id)+"'"
+def deleteorder(oid, id) :
+    sqlquery = "EXEC DeleteOrderDetails @ordid='"+str(oid)+"', @id='"+str(id)+"'"
     return fn.updatedata(sqlquery)
 
-def countord(id, date) :
-    sqlquery = "EXEC CountOrders @uid='"+str(id)+"', @date='"+str(date)+"'"
-    return fn.getlistdata(sqlquery)
 
 ##------------------------------------------##
 

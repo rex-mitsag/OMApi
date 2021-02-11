@@ -553,6 +553,13 @@ def updateUserAuth() :
     out = osq.updateauth(auth, rem, oid)
     return str(out)
 
+@app.route('/order/deleteOrder')
+def deleteOrder() :
+    oid = str(request.args['oid'])
+    id = str(request.args['id'])
+    out = osq.deleteord(oid, id)
+    return str(out)
+
 
 
 
@@ -767,11 +774,11 @@ def updateOrdAuth() :
     out = osq.updateordauth(auth, rem, oid, uname, utype)
     return str(out)
 
-@app.route('/order/deleteOrder')
-def deleteOrder() :
+@app.route('/order/deleteOrderDetails')
+def deleteOrderDetails() :
     oid = str(request.args['oid'])
     id = str(request.args['id'])
-    out = osq.deleteord(oid, id)
+    out = osq.deleteorder(oid, id)
     return str(out)
 
 @app.route('/order/countOrder')
