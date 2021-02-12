@@ -655,6 +655,7 @@ def getDirectOrder() :
             d["date"] = row[7]
             d["remark"] = row[8]
             d["remarkedby"] = row[9]
+            d["remarks"] = row[10]
             objects_list.append(d)                  
         jsonList = json.dumps(objects_list)
         return jsonList
@@ -684,6 +685,7 @@ def getDealerOrder() :
             d["remark"] = row[9]
             d["remarkedby"] = row[10]
             d["fname"] = row[11]
+            d["remarks"] = row[12]
             objects_list.append(d)
         jsonList = json.dumps(objects_list)
         return jsonList
@@ -713,6 +715,7 @@ def getSuperOrder() :
             d["remark"] = row[9]
             d["remarkedby"] = row[10]
             d["fname"] = row[11]
+            d["remarks"] = row[12]
             objects_list.append(d)
         jsonList = json.dumps(objects_list)
         return jsonList
