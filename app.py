@@ -269,6 +269,17 @@ def getDealerNames() :
     jsonList = json.dumps(objects_list)
     return jsonList
 
+@app.route('/user/getGroupNames')
+def getGroupNames() :
+    out = usq.getgroupname()
+    objects_list = []
+    for row in out :
+        d = collections.OrderedDict()
+        d["group"] = row[0]
+        objects_list.append(d)
+    jsonList = json.dumps(objects_list)
+    return jsonList
+
 @app.route('/user/getSuperNames')
 def getSuperNames() :
     id = str(request.args['id'])

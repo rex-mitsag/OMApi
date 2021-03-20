@@ -86,6 +86,10 @@ def getdealername(ipID) :
     sqlquery = "EXEC SelectDealerNames @id='"+str(ipID)+"'"
     return fn.getlistdata(sqlquery)
 
+def getgroupname() :
+    sqlquery = "EXEC SelectGroupNames"
+    return fn.getlistdata(sqlquery)
+
 def getsupername(ipID) :
     sqlquery = "EXEC SelectSuperNames @id='"+str(ipID)+"'"
     return fn.getlistdata(sqlquery)
